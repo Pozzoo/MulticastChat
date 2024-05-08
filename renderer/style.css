@@ -1,0 +1,92 @@
+body {
+    background-color: #180229;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow-y: hidden;
+}
+
+p {
+    color: #fdc5ff;
+}
+
+#wrapper {
+    display: flex;
+    width: 90%;
+    height: 90%;
+    background-color: #0f0f0f;
+    padding: 1vh;
+    border-radius: 20px;
+    flex-direction: column;
+    justify-content: end;
+}
+
+#chatBox {
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: center;
+    padding: 20px 10px;
+}
+
+#chat {
+    width: 100%;
+    padding: 0px;
+}
+
+.chatMessage {
+    display: flex;
+    padding: 5px;
+    justify-content: center;
+}
+
+.chatMessage .outgoing {
+    border-radius: 20px;
+    background-color: #1e1e1e;
+    padding: 5px;
+    width: fit-content;
+}
+
+.chatMessage .incoming {
+    border-radius: 20px;
+    background-color: #323232;
+    padding: 5px;
+    width: fit-content;
+}
+
+.chatMessage:has(.incoming) {
+    justify-content: right;
+}
+
+.chatMessage:has(.outgoing) {
+    justify-content: left;
+}
+
+.chatMessage .time {
+    float: right;
+    font-size: small;
+}
+
+.chatMessage .username {
+    font-size: small;
+    color: #E066F4;
+}
+
+.chatMessage p {
+    margin: 5px;
+    width: fit-content;
+}
+
+#lowerButtons {
+    display: flex;
+    justify-content: space-around;
+}
+
+#lowerButtons input {
+    width: 80%;
+}
+
+#lowerButtons button {
+    width: 15%;
+}

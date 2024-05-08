@@ -1,0 +1,16 @@
+{
+  "name": "multicastchat",
+  "productName": "Chat",
+  "version": "1.0.0",
+  "description": "A simple chat app using UDP Multicast",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pozzoo",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^30.0.2"
+  }
+}

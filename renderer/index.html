@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self';">
+    <title>Chat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="wrapper">
+        <div id="upperButtons">
+
+        </div>
+        <div id="chatBox">
+            <ul id="chat">
+                <li class="chatMessage">
+                    <div class="outgoing">
+                        <p class="username">pessoa</p>
+                        <p>Lorem ipsum dolor sit amet consectetur</p>
+                        <p class="time">13:40</p>
+                    </div>
+                </li>
+                <li class="chatMessage">
+                    <div class="incoming">
+                        <p class="username">batata</p>
+                        <p>Lorem ipsum dolor sit amet consectetur</p>
+                        <p class="time">13:40</p>
+                    </div>
+                </li>
+                <li class="chatMessage">
+                    <div class="incoming">
+                        <p class="username">batata</p>
+                        <p>pequena</p>
+                        <p class="time">13:40</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div id="lowerButtons">
+            <input type="text" name="Send Message" id="inputMessage">
+            <button type="button" id="sendButton">Send</button>
+        </div>
+    </div>
+</body>
+<script type="module" src="renderer.js"></script>
+</html>
