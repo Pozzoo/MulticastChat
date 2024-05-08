@@ -41,25 +41,25 @@ p {
     justify-content: center;
 }
 
-.chatMessage .outgoing {
+.chatMessage .incoming {
     border-radius: 20px;
     background-color: #1e1e1e;
     padding: 5px;
     width: fit-content;
 }
 
-.chatMessage .incoming {
+.chatMessage .outgoing {
     border-radius: 20px;
     background-color: #323232;
     padding: 5px;
     width: fit-content;
 }
 
-.chatMessage:has(.incoming) {
+.chatMessage:has(.outgoing) {
     justify-content: right;
 }
 
-.chatMessage:has(.outgoing) {
+.chatMessage:has(.incoming) {
     justify-content: left;
 }
 
@@ -85,8 +85,14 @@ p {
 
 #lowerButtons input {
     width: 80%;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 20px;
 }
 
 #lowerButtons button {
     width: 15%;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 20px;
+    background-color: #1e1e1e;
+    color: white;
 }
