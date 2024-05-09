@@ -36,7 +36,6 @@ ipcRenderer.on('messageRecieved', (event, options) => {
 
     let message = new Message(parsedJson.date, parsedJson.time, parsedJson.username, parsedJson.message);
 
-    console.log(message);
     handleMessageRecieved(message);
     
 });
@@ -52,8 +51,6 @@ function handleMessageRecieved(message) {
     }
 
     var isOurs = message.username === username;
-    console.log(username)
-    console.log(message.username)
 
     const chatMessage = document.createElement('li');
     chatMessage.setAttribute('class', 'chatMessage');

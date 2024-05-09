@@ -1,15 +1,18 @@
 const path = require('path');
 const dgram = require("dgram");
-const { app, BrowserWindow, Menu, ipcMain } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, net } = require('electron');
+const { networkInterfaces, type } = require('os');
 
-const isDev = false;
+const isDev = true;
+
+const nets = networkInterfaces();
 
 var socket = dgram.createSocket("udp4");
 
-var host = "224.0.0.114";
+var address = "224.0.0.1";
 var port = 5700;
 
-var username = 'user';
+var username = ('user').concat(Math.floor(Math.random() * 10000));
 
 let mainWindow, optionsWindow;
 
@@ -39,7 +42,6 @@ app.whenReady().then(() => {
     if (isDev) {
         mainWindow.webContents.openDevTools();
     }
-    
 });
 
 const menu = [
@@ -63,14 +65,14 @@ ipcMain.on('sendMessage', (event, options) => {
 });
 
 ipcMain.on('saveOptions', (event, options) => {
-    socket.dropMembership(host);
+    socket.dropMembership(address);
     
     username = options.username;
     port = options.port;
 
     socket.close();
 
-    socket = dgram.createSocket("udp4");
+    socket = new dgram.createSocket("udp4");
     bindSocket();
 
     optionsWindow.close();
@@ -124,21 +126,38 @@ function createMainWindow() {
         },
     });
 
-    mainWindow.loadFile(path.join(__dirname, './renderer/index.html'));
+    mainWindow.loadFile(path.join(__dirname, './renderer/index.html')).then(() => {
+        mainWindow.webContents.send('usernameChange', username);
+    })
+
     return mainWindow;
 }
 
 function bindSocket() {
-    socket.bind(port, () => {
-        socket.addMembership(host);
-    });
+    if (typeof nets['Ethernet'] != "undefined") {
+        for (const net of nets['Ethernet']) {
+            if (net.family === 'IPv4') {
+                socket.bind(port, net.address);
+                break;
+            }
+        }
+    } else {
+        console.log("Ethernet device not found");
+        app.quit();
+    }
+
+    socket.on('listening', () => { 
+        socket.setBroadcast(true);
+        socket.addMembership(address);
+    })
 
     socket.on('message', function(msg, rinfo) {
-        let unbuffered = " " + msg
+        let unbuffered = " " + msg;
+
         mainWindow.webContents.send('messageRecieved', unbuffered);
     });
 }
 
 function broadcastMessage(message) {
-    socket.send(message, port);
+    socket.send(message, port, address);
 }
