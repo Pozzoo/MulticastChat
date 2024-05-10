@@ -3,7 +3,7 @@ const dgram = require("dgram");
 const { app, BrowserWindow, Menu, ipcMain, net } = require('electron');
 const { networkInterfaces, type } = require('os');
 
-const isDev = true;
+const isDev = false;
 
 const nets = networkInterfaces();
 
@@ -141,8 +141,15 @@ function bindSocket() {
                 break;
             }
         }
+    } else if (typeof nets['WiFi'] != "undefined") {
+        for (const net of nets['WiFi']) {
+            if (net.family === 'IPv4') {
+                socket.bind(port, net.address);
+                break;
+            }
+        }
     } else {
-        console.log("Ethernet device not found");
+        console.log("Network device not found");
         app.quit();
     }
 
