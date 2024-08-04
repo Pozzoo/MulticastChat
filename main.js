@@ -1,18 +1,18 @@
 const path = require('path');
 const dgram = require("dgram");
-const { app, BrowserWindow, Menu, ipcMain, net } = require('electron');
-const { networkInterfaces, type } = require('os');
+const { app, BrowserWindow, Menu, ipcMain } = require('electron');
+const { networkInterfaces } = require('os');
 
 const isDev = false;
 
 const nets = networkInterfaces();
 
-var socket = dgram.createSocket("udp4");
+let socket = dgram.createSocket("udp4");
 
-var address = "224.0.0.1";
-var port = 5700;
+let address = "224.0.0.1";
+let port = 5700;
 
-var username = ('user').concat(Math.floor(Math.random() * 10000));
+let username = ('user').concat(Math.floor(Math.random() * 10000).toString());
 
 let mainWindow, optionsWindow;
 
@@ -82,7 +82,7 @@ ipcMain.on('saveOptions', (event, options) => {
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
-        app.quit;
+        app.quit();
     }
 });
 
@@ -158,10 +158,10 @@ function bindSocket() {
         socket.addMembership(address);
     })
 
-    socket.on('message', function(msg, rinfo) {
+    socket.on('message', function(msg) {
         let unbuffered = " " + msg;
 
-        mainWindow.webContents.send('messageRecieved', unbuffered);
+        mainWindow.webContents.send('messageReceived', unbuffered);
     });
 }
 
